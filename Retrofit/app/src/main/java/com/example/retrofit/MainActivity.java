@@ -1,6 +1,7 @@
 package com.example.retrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,15 +9,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.retrofit.api.CommentsAPI;
+import com.example.retrofit.api.GetUsersAPI;
 import com.example.retrofit.api.PostAPI;
 import com.example.retrofit.api.UserCommentsAPI;
 import com.example.retrofit.databinding.ActivityMainBinding;
 import com.example.retrofit.model.Comment;
 import com.example.retrofit.model.Post;
+import com.example.retrofit.model.User;
+import com.example.retrofit.viewmodel.SpinnerViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +38,44 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = activityMainBinding.getRoot();
         setContentView(view);
+        String TAG = "XXX";
 //        setContentView(R.layout.activity_main);
+        SpinnerViewModel spinnerViewModel = new ViewModelProvider(MainActivity.this)
+                .get(SpinnerViewModel.class);
+        activityMainBinding.setSpinnerVM(spinnerViewModel);
+        spinnerViewModel.getMutableUserIds().observe(MainActivity.this, s -> {
+            activityMainBinding.idSpinner.
+        });
+        Retrofit usersRetrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetUsersAPI usersAPI = usersRetrofit.create(GetUsersAPI.class);
+        Call<List<User>> call1 = usersAPI.getAllUsers();
+        call1.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if(!response.isSuccessful()){
+                    Log.e("XXX", String.valueOf(response.code()));
+                    return;
+                }else{
+                    Log.d(TAG, "gotUsers: " + response.code());
+                    List<User> users = response.body();
+                    List<String> userIds = new ArrayList<>();
+                    for (User user :
+                            users) {
+                        userIds.add(String.valueOf(user.getId()));
+                    }
+                    Log.d(TAG, userIds.toString());
+                    spinnerViewModel.setUserIds(userIds);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.e("XXX", t.getMessage());
+            }
+        });
         activityMainBinding.get1.setOnClickListener( view1 -> {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://jsonplaceholder.typicode.com")
