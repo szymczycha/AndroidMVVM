@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 .get(SpinnerViewModel.class);
         activityMainBinding.setSpinnerVM(spinnerViewModel);
         spinnerViewModel.getMutableUserIds().observe(MainActivity.this, s -> {
-            activityMainBinding.idSpinner.
+            //
         });
         Retrofit usersRetrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com")
