@@ -1,6 +1,7 @@
 package com.example.roommvvm2.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -17,4 +18,9 @@ public interface NoteDAO {
     @Query("SELECT * FROM notesTBL")
     List<Note> getAllNotes();
 
+    @Delete
+    void deleteOne(Note note);
+
+    @Query("DELETE FROM notesTBL")
+    void deleteAll();
 }

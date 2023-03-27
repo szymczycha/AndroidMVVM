@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.roommvvm2.adapters.NotesAdapter;
 import com.example.roommvvm2.databinding.ActivityMainBinding;
+import com.example.roommvvm2.model.Note;
 import com.example.roommvvm2.viewmodel.NotesViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,8 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
         binding.setNotesViewModel(notesViewModel);
 
-        binding.gridview.setAdapter(adapter);
+        adapter = new NotesAdapter(notesViewModel);
 
+        binding.gridview.setAdapter(adapter);
+        binding.deleteAllButton.setOnClickListener(view1 -> {
+            notesViewModel.deleteAll();
+        });
+        notesViewModel.getObservedNotes().observe(MainActivity.this, notes->{
+            binding.setNotesViewModel(notesViewModel);
+            adapter.notifyDataSetChanged();
+            Log.d("XXX", String.valueOf(notesViewModel.getObservedNotes().getValue()));
+        });
+        binding.addButton.setOnClickListener(v->{
+            Note note = new Note("title", "content");
+            notesViewModel.addNote(note);
+        });
 //        setContentView(R.layout.activity_main);
     }
 }

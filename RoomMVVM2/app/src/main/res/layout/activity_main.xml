@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="NotesViewModel"
             type="com.example.roommvvm2.viewmodel.NotesViewModel" />
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity">
-
-        <TextView
+        <LinearLayout
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="2"
-            android:id="@+id/gridview"
-            />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/deleteAllButton"
+                android:text="delete all"
+                />
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:id="@+id/gridview"
+                />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/addButton" />
+    </RelativeLayout>
 </layout>

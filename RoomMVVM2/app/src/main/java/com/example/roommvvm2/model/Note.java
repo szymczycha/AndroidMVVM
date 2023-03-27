@@ -13,11 +13,45 @@ public class Note {
     @ColumnInfo(name = "content")
     private String content;
     @ColumnInfo(name = "timestamp")
-    private int timestamp;
+    private long timestamp;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
         // timestamp do zrobienia z date?
+        this.timestamp = System.currentTimeMillis();
+
     }
 }

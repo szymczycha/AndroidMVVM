@@ -6,8 +6,11 @@
             type="com.example.roommvvm2.model.Note" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
         android:orientation="vertical"
         android:background="@color/purple_500">
         <LinearLayout
@@ -16,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="id"
+                android:text="@{String.valueOf(Note.id)}"
                 android:textColor="@color/white"
                 android:id="@+id/id"/>
             <LinearLayout
@@ -27,14 +30,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="title"
+                    android:text="@{Note.title}"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/white"
                     android:id="@+id/title"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="content"
+                    android:text="@{Note.getContent()}"
                     android:textSize="10dp"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/white"
                     android:id="@+id/content"/>
             </LinearLayout>
@@ -45,13 +50,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="timestamp"
+                android:layout_alignParentBottom="true"
+                android:text="@{String.valueOf(Note.getTimestamp())}"
                 android:textColor="#ffffff00"
                 android:id="@+id/timestamp"/>
             <ImageView
                 android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/delete_icon"
                 android:id="@+id/deleteButton"/>
         </RelativeLayout>

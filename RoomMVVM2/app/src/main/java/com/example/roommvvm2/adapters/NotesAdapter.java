@@ -1,6 +1,7 @@
 package com.example.roommvvm2.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.example.roommvvm2.viewmodel.NotesViewModel;
 public class NotesAdapter extends BaseAdapter {
     private NotesViewModel notesViewModel;
     private LayoutInflater layoutInflater;
+    private final String TAG = "XXX";
 
     public NotesAdapter(NotesViewModel notesViewModel){
         this.notesViewModel = notesViewModel;
@@ -19,12 +21,12 @@ public class NotesAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return 0;//count listy notatek
+        return notesViewModel.getObservedNotes().getValue().size();//count listy notatek
     }
 
     @Override
     public Object getItem(int i){
-        return null; //i-ta notatka
+        return notesViewModel.getObservedNotes().getValue().get(i); //i-ta notatka
     }
 
     @Override
@@ -37,17 +39,24 @@ public class NotesAdapter extends BaseAdapter {
         View root = convertView;
 
         GridviewitemBinding binding;
+        Log.d(TAG, "getView: " + position);
         if(root == null) {
             if(layoutInflater == null){
                 layoutInflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
             binding = GridviewitemBinding.inflate(layoutInflater, viewGroup, false);
             root = binding.getRoot();
-            root.setTag(binding);
 
+            root.setTag(binding);
+            Log.d(TAG, "getView: " + root);
         }else{
             binding = (GridviewitemBinding) root.getTag();
+
         }
+        binding.deleteButton.setOnClickListener(v->{
+            notesViewModel.deleteNote(notesViewModel.getObservedNotes().getValue().get(position));
+        });
+
         binding.setNote(notesViewModel.getObservedNotes().getValue().get(position));
 
         return root;

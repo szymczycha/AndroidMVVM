@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.roommvvm2.model.Note;
 
-@androidx.room.Database(entities = {Note.class}, version = 1)
+@androidx.room.Database(entities = {Note.class}, version = 2)
 public abstract class NoteDatabase extends RoomDatabase {
     private static NoteDatabase roomDatabase;
     private static final String DATABASE_NAME = "notesDB";

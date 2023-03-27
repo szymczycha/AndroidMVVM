@@ -36,5 +36,13 @@ public class NotesViewModel extends AndroidViewModel {
         noteRepository.insertOne(note);
         this.mutableNotesList.setValue(noteRepository.getAllNotes());
     }
+    public void deleteNote(Note note){
+        noteRepository.deleteOne(note);
+        this.mutableNotesList.setValue(noteRepository.getAllNotes());
+    }
+     public void deleteAll(){
+        noteRepository.deleteAll();
+        this.mutableNotesList.setValue(noteRepository.getAllNotes());
+     }
 
 }

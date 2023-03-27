@@ -20,4 +20,14 @@ public class NoteRepository implements NoteDAO{
     public List<Note> getAllNotes() {
         return dao.getAllNotes();
     }
+
+    @Override
+    public void deleteOne(Note note) {
+        dao.deleteOne(note);
+    }
+
+    @Override
+    public void deleteAll() {
+        dao.deleteAll();
+    }
 }
